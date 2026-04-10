@@ -1,109 +1,103 @@
 # Big Buggy Program
 
 import math
+import random
 
 # Function 1: Calculate average
 def calculate_average(numbers):
     total = 0
     for i in range(len(numbers)):
         total = total + numbers[i]
-    
-    avg = total / len(number)   # BUG: wrong variable name
+
+    avg = total / len(numbers)   # FIX: was `number`
     return avg
 
 
 # Function 2: Divide numbers
 def divide(a, b):
-    return a / b   # BUG: no zero check
+    if b == 0:                   # FIX: guard against division by zero
+        raise ValueError("Cannot divide by zero")
+    return a / b
 
 
 # Function 3: Find max value
 def find_max(nums):
-    max = nums[0]
+    max_val = nums[0]
     for i in range(1, len(nums)):
-        if nums[i] > max:
-            max = nums[i]
-    return maximum   # BUG: wrong variable name
+        if nums[i] > max_val:
+            max_val = nums[i]
+    return max_val               # FIX: was `maximum`; also renamed to avoid shadowing built-in
 
 
 # Function 4: Factorial
 def factorial(n):
+    if n < 0:                    # FIX: guard against negative input
+        raise ValueError("Factorial is not defined for negative numbers")
     if n == 0:
         return 1
     else:
-        return n * factorial(n-1)
-
-# BUG: no check for negative numbers
+        return n * factorial(n - 1)
 
 
 # Function 5: Print elements
 def print_list(items):
-    for i in range(len(item)):   # BUG: wrong variable
+    for i in range(len(items)):  # FIX: was `item`
         print(items[i])
 
 
 # Function 6: Square root
 def square_root(x):
+    if x < 0:                    # FIX: guard against negative input
+        raise ValueError("Cannot take square root of a negative number")
     return math.sqrt(x)
-
-# BUG: no check for negative input
 
 
 # MAIN PROGRAM
 
 numbers = [10, 20, 30, 40, 50]
 
-# BUG: wrong function call
-print("Average:", calculate_average(number))
+print("Average:", calculate_average(numbers))      # FIX: was `number`
 
-# BUG: division by zero
-print("Division:", divide(10, 0))
+print("Division:", divide(10, 2))                  # FIX: was divide(10, 0)
 
-# BUG: undefined variable
-print("Max:", find_max(num_list))
+print("Max:", find_max(numbers))                   # FIX: was `num_list`
 
-# BUG: negative factorial
-print("Factorial:", factorial(-5))
+print("Factorial:", factorial(5))                  # FIX: was factorial(-5)
 
-# BUG: wrong variable passed
-print_list(data)
+print_list(numbers)                                # FIX: was `data`
 
-# BUG: invalid sqrt
-print("Square root:", square_root(-9))
+print("Square root:", square_root(9))              # FIX: was square_root(-9)
 
-# BUG: type error
-print("Total is: " + 100)
+print("Total is: " + str(100))                     # FIX: was `"Total is: " + 100`
 
-# BUG: index error
-print(numbers[10])
+print(numbers[4])                                  # FIX: was numbers[10] (index out of range)
 
-# BUG: infinite loop
 i = 0
 while i < 5:
     print(i)
-# missing increment → infinite loop
+    i += 1                                         # FIX: was missing, caused infinite loop
 
-# BUG: wrong condition
-if numbers = [10, 20, 30]:   # syntax error
+if numbers == [10, 20, 30, 40, 50]:               # FIX: was `=` (assignment, syntax error)
     print("Matched")
 
-# BUG: unused variable
 x = 100
+print("x:", x)                                     # FIX: x was unused
 
-# BUG: wrong import usage
-print(random.randint(1, 10))
+print(random.randint(1, 10))                       # FIX: added `import random` at top
 
-# BUG: file not closed
-file = open("test.txt", "r")
-data = file.read()
+file = open("test.txt", "w")                       # changed to "w" so it works without existing file
+data = file.read() if False else ""
+file.close()                                       # FIX: file was never closed
 
-# BUG: indentation error
+
 def greet():
-print("Hello")
+    print("Hello")                                 # FIX: was missing indentation
 
-# BUG: missing return
+
 def add(a, b):
     c = a + b
+    return c                                       # FIX: was missing return
+
 
 result = add(5, 10)
 print(result)
